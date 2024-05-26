@@ -30,11 +30,3 @@ A centralized platform where students can find part-time job opportunities both 
 ### Database
 
 - MySQL
-
-## Installation
-
-1. **Clone the Repository:**
-
-```bash
-git clone https://github.com/your-username/campus-job-board.git
-cd campus-job-board

@@ -1,5 +1,7 @@
-// backend/src/main/java/com/example/gitamwebportal/controller/JobController.java
+package com.example.gitamwebportal.controller;
 
+import com.example.gitamwebportal.entity.JobListing;
+import com.example.gitamwebportal.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

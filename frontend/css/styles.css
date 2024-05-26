@@ -1,56 +1,31 @@
-/* default styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Custom styles for job board */
+
+/* Style for job listing cards */
+.card {
+    margin-bottom: 20px;
 }
 
-/* Body styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
-    line-height: 1.6;
+/* Style for job title */
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
 }
 
-/* Header styles */
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
+/* Style for company name */
+.card-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
 }
 
-/* Navigation styles */
-nav {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+/* Style for job description */
+.card-text {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
 }
 
-nav ul {
-    list-style-type: none;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #fff;
-}
-
-/* Main content styles */
-.main-content {
-    padding: 20px;
-}
-
-/* Footer styles */
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
+/* Style for apply button */
+.card-link {
+    font-size: 0.9rem;
+    color: #007bff;
 }

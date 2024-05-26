@@ -1,54 +1,76 @@
-// Sample job data
-const jobData = [
-    { title: "Software Developer Intern", company: "ABC Tech", description: "We are looking for a software developer intern to join our team.", applyLink: "#" },
-    { title: "Marketing Assistant", company: "XYZ Marketing", description: "Join our marketing team and assist with various marketing activities.", applyLink: "#" },
-    //more job listings can be as needed
-];
-// Function to display job listings on the job board
-function displayJobListings() {
-    const jobListingsContainer = document.getElementById('job-listings');
+// scripts.js
 
-    // Clear existing job listings
-    jobListingsContainer.innerHTML = '';
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to fetch job listings from backend and render them
+    function fetchJobListings() {
+        // Use fetch API or AJAX to get job listings from backend
+        // Example:
+        fetch('/api/job-listings')
+            .then(response => response.json())
+            .then(data => {
+                const jobListingsContainer = document.getElementById('job-listings-container');
+                // Clear previous listings
+                jobListingsContainer.innerHTML = '';
+                // Render job listings
+                data.forEach(job => {
+                    const jobListing = document.createElement('div');
+                    jobListing.classList.add('job-listing');
+                    jobListing.innerHTML = `
+                        <h3>${job.title}</h3>
+                        <p>${job.description}</p>
+                        <p>Location: ${job.location}</p>
+                        <button class="apply-btn">Apply Now</button>
+                    `;
+                    jobListingsContainer.appendChild(jobListing);
+                });
+            })
+            .catch(error => console.error('Error fetching job listings:', error));
+    }
 
-    // Iterate through job data and create job listing cards
-    jobData.forEach(job => {
-        const card = document.createElement('div');
-        card.classList.add('card');
+    // Function to handle form submission for student profile
+    function submitProfile(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        // Use fetch API or AJAX to send form data to backend for processing
+        // Example:
+        fetch('/api/student-profile', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Profile saved successfully!');
+            } else {
+                throw new Error('Failed to save profile');
+            }
+        })
+        .catch(error => console.error('Error saving profile:', error));
+    }
 
-        const cardBody = document.createElement('div');
-        cardBody.classList.add('card-body');
+    // Function to handle form submission for job posting
+    function postJob(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        // Use fetch API or AJAX to send form data to backend for processing
+        // Example:
+        fetch('/api/post-job', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Job posted successfully!');
+            } else {
+                throw new Error('Failed to post job');
+            }
+        })
+        .catch(error => console.error('Error posting job:', error));
+    }
 
-        const title = document.createElement('h5');
-        title.classList.add('card-title');
-        title.textContent = job.title;
+    // Event listeners
+    document.getElementById('profile-form').addEventListener('submit', submitProfile);
+    document.getElementById('post-job-form').addEventListener('submit', postJob);
 
-        const company = document.createElement('h6');
-        company.classList.add('card-subtitle', 'mb-2', 'text-muted');
-        company.textContent = job.company;
-
-        const description = document.createElement('p');
-        description.classList.add('card-text');
-        description.textContent = job.description;
-
-        const applyLink = document.createElement('a');
-        applyLink.classList.add('card-link');
-        applyLink.setAttribute('href', job.applyLink);
-        applyLink.textContent = 'Apply Now';
-
-        // Append elements to card body
-        cardBody.appendChild(title);
-        cardBody.appendChild(company);
-        cardBody.appendChild(description);
-        cardBody.appendChild(applyLink);
-
-        // Append card body to card
-        card.appendChild(cardBody);
-
-        // Append card to job listings container
-        jobListingsContainer.appendChild(card);
-    });
-}
-
-// Call the displayJobListings function to populate job listings when the page loads
-document.addEventListener('DOMContentLoaded', displayJobListings);
+    // Initial fetch of job listings
+    fetchJobListings();
+});

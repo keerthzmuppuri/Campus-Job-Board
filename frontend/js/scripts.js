@@ -1,63 +1,54 @@
-$(document).ready(function() {
-    // Function to fetch data from an API and display it
-    function fetchData() {
-        $.ajax({
-            url: 'https://api.example.com/data',
-            method: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                // Assuming response is an array of objects
-                response.forEach(function(item) {
-                    $('#dataContainer').append('<div>' + item.name + ': ' + item.value + '</div>');
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching data:', error);
-            }
-        });
-    }
+// Sample job data
+const jobData = [
+    { title: "Software Developer Intern", company: "ABC Tech", description: "We are looking for a software developer intern to join our team.", applyLink: "#" },
+    { title: "Marketing Assistant", company: "XYZ Marketing", description: "Join our marketing team and assist with various marketing activities.", applyLink: "#" },
+    //more job listings can be as needed
+];
+// Function to display job listings on the job board
+function displayJobListings() {
+    const jobListingsContainer = document.getElementById('job-listings');
 
-    // Call fetchData function when page loads
-    fetchData();
+    // Clear existing job listings
+    jobListingsContainer.innerHTML = '';
 
-    // Function to handle form submission
-    $('#myForm').submit(function(event) {
-        // Prevent default form submission
-        event.preventDefault();
+    // Iterate through job data and create job listing cards
+    jobData.forEach(job => {
+        const card = document.createElement('div');
+        card.classList.add('card');
 
-        // Serialize form data
-        var formData = $(this).serialize();
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
 
-        // Example AJAX form submission
-        $.ajax({
-            url: 'https://api.example.com/submit',
-            method: 'POST',
-            data: formData,
-            success: function(response) {
-                // Display success message
-                $('#formMessage').text('Form submitted successfully!');
-            },
-            error: function(xhr, status, error) {
-                // Display error message
-                $('#formMessage').text('Error submitting form. Please try again later.');
-                console.error('Error submitting form:', error);
-            }
-        });
+        const title = document.createElement('h5');
+        title.classList.add('card-title');
+        title.textContent = job.title;
+
+        const company = document.createElement('h6');
+        company.classList.add('card-subtitle', 'mb-2', 'text-muted');
+        company.textContent = job.company;
+
+        const description = document.createElement('p');
+        description.classList.add('card-text');
+        description.textContent = job.description;
+
+        const applyLink = document.createElement('a');
+        applyLink.classList.add('card-link');
+        applyLink.setAttribute('href', job.applyLink);
+        applyLink.textContent = 'Apply Now';
+
+        // Append elements to card body
+        cardBody.appendChild(title);
+        cardBody.appendChild(company);
+        cardBody.appendChild(description);
+        cardBody.appendChild(applyLink);
+
+        // Append card body to card
+        card.appendChild(cardBody);
+
+        // Append card to job listings container
+        jobListingsContainer.appendChild(card);
     });
+}
 
-    // Function to handle navigation
-    $('nav a').click(function(event) {
-        // Prevent default anchor behavior
-        event.preventDefault();
-
-        // Get the href attribute value
-        var target = $(this).attr('href');
-
-        // Scroll to the target
-        $('html, body').animate({
-            scrollTop: $(target).offset().top
-        }, 1000);
-    });
-});
-
-
+// Call the displayJobListings function to populate job listings when the page loads
+document.addEventListener('DOMContentLoaded', displayJobListings);
